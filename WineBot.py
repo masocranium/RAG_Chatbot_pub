@@ -11,6 +11,7 @@ from rag_core import GenericRAGChatbot, KnowledgeBaseConfig, PromptConfig
 DB_DESTINATION_PATH = "fnh330_db/"
 USE_SEMANTIC_CHUNKING = False
 
+# These directories must exist and contain pdf's or text (.txt) files
 DEFAULT_WINE_DATA_DIRS = [
     os.path.join("wine_data", "Lectures"),
     os.path.join("wine_data", "Notes"),
