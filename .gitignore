@@ -1,0 +1,10 @@
+dg_audios
+dg_db/
+.venv
+.env
+fnh330_db/
+fnh330_db_recursive/
+__pycache__/
+wine_data/Lectures/
+wine_data/Notes/
+wine_data/video_transcripts/
