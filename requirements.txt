@@ -22,6 +22,8 @@ flask>=3.0
 flatbuffers==25.12.19
 frozenlist==1.8.0
 fsspec==2026.1.0
+genanki==0.13.1
+google-genai==1.73.1
 google-ai-generativelanguage==0.6.15
 google-api-core==2.29.0
 google-api-python-client==2.188.0
@@ -86,6 +88,7 @@ pydantic-core==2.41.5
 pydantic-settings==2.12.0
 pygments==2.19.2
 pyparsing==3.3.2
+pymupdf==1.27.2.3
 pypdf==6.6.2
 pypika==0.51.0
 pyproject-hooks==1.2.0
@@ -115,7 +118,7 @@ uritemplate==4.2.0
 urllib3==2.6.3
 uuid-utils==0.14.0
 uvicorn==0.40.0
-uvloop==0.22.1
+uvloop==0.22.1; sys_platform != 'win32'
 watchfiles==1.1.1
 websocket-client==1.9.0
 websockets==16.0
@@ -123,3 +126,5 @@ xxhash==3.6.0
 yarl==1.22.0
 zipp==3.23.0
 zstandard==0.25.0
+pdf2image==1.17.0
+pytesseract==0.3.13

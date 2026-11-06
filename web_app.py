@@ -8,19 +8,9 @@ import os
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify, render_template_string
 
-from WineBot import WineChatbot
+from models.ExampleBot import CHUNKING_MODE, COLLECTION_NAME, DB_DESTINATION_PATH, ExampleChatbot
 
 load_dotenv()
-
-# Same config as WineBot __main__
-DB_DESTINATION_PATH = "fnh330_db/"
-USE_SEMANTIC_CHUNKING = False
-base_data_path = os.path.join("wine_data")
-data_dirs = [
-    os.path.join(base_data_path, "Lectures"),
-    os.path.join(base_data_path, "Notes"),
-    os.path.join(base_data_path, "video_transcripts"),
-]
   
 app = Flask(__name__)
 _chatbot = None
@@ -32,13 +22,13 @@ def get_chatbot():
         api_key = os.environ.get("GOOGLE_API_KEY")
         if not api_key:
             raise RuntimeError("GOOGLE_API_KEY not set in environment")
-        _chatbot = WineChatbot(
-            llm_model_name="gemini-2.5-flash",
+        _chatbot = ExampleChatbot(
+            llm_model_name="gemini-3.1-flash-lite",
             embedding_model_name="gemini-embedding-001",
             api_key=api_key,
-            collection_name="fnh330_wine_course_gemini",
+            collection_name=COLLECTION_NAME,
             db_path=DB_DESTINATION_PATH,
-            chunking_mode="semantic" if USE_SEMANTIC_CHUNKING else "recursive",
+            chunking_mode=CHUNKING_MODE,
         )
     return _chatbot
 
@@ -230,7 +220,7 @@ INDEX_HTML = """<!DOCTYPE html>
       }
     });
 
-    const THEME_KEY = 'wino-theme';
+    const THEME_KEY = 'rag-chatbot-theme';
     function getTheme() { return document.documentElement.getAttribute('data-theme') || 'dark'; }
     function setTheme(theme) {
       document.documentElement.setAttribute('data-theme', theme);
@@ -258,7 +248,7 @@ INDEX_HTML = """<!DOCTYPE html>
       outputEl.textContent = '';
       outputEl.classList.remove('empty', 'error');
       setBusy(true);
-      setStatus('🍇🤔🍷🥴🥂');
+      setStatus('Thinking…');
       try {
         const res = await fetch('/ask', {
           method: 'POST',
